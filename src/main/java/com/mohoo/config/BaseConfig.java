@@ -29,26 +29,10 @@ import com.mohoo.util.PropertiesUtil;
 public class BaseConfig {
 	protected volatile String accessToken;
 
-	protected volatile String accessTokenExpiresTime;
+	protected volatile long accessTokenExpiresTime;
 	
 	protected volatile String wxCardTicket;
 	protected volatile long wxCardTicketExpiresTime;
-	
-	public synchronized String findAccessToken() throws IOException {
-		String jsonMap = OkHttpUtil.doGetHttpRequest(PropertiesUtil
-				.getPropertyPath("weixin.access_token"));
-		if (StringUtils.isNotEmpty(jsonMap)) {
-			Map<String, Object> resultMap = JSONObject.parseObject(jsonMap);
-			if (resultMap.get("status") != null
-					&& StringUtils.isNotEmpty(resultMap.get("status").toString())
-					&& StringUtils.equals(resultMap.get("status").toString(), "200")
-					&& resultMap.get("data") != null
-				) {
-				return resultMap.get("data").toString();
-			}
-		}
-		return null;
-	}
 	
 	public String getAccessToken() {
 		return accessToken;
@@ -58,11 +42,11 @@ public class BaseConfig {
 		this.accessToken = accessToken;
 	}
 	
-	public String getAccessTokenExpiresTime() {
+	public long getAccessTokenExpiresTime() {
 		return accessTokenExpiresTime;
 	}
 
-	public void setAccessTokenExpiresTime(String accessTokenExpiresTime) {
+	public void setAccessTokenExpiresTime(long accessTokenExpiresTime) {
 		this.accessTokenExpiresTime = accessTokenExpiresTime;
 	}
 	
@@ -87,7 +71,9 @@ public class BaseConfig {
 	}
 
 	
-	
+	public boolean isAccessTokenExpired() {
+		return System.currentTimeMillis() > this.accessTokenExpiresTime;
+	}
 	public synchronized void updateWxCardTicket(String wxCardTicket,
 			int expiresInSeconds) {
 		this.wxCardTicket = wxCardTicket;
@@ -95,7 +81,17 @@ public class BaseConfig {
 		this.wxCardTicketExpiresTime = System.currentTimeMillis()
 				+ (expiresInSeconds - 200) * 1000l;
 	}
-
+	public synchronized void updateAccessToken(String accessToken,
+			int expiresInSeconds) {
+		this.accessToken = accessToken;
+		// 预留200秒的时间
+		this.accessTokenExpiresTime = System.currentTimeMillis()
+				+ (expiresInSeconds - 200) * 1000l;
+	}
+	public void expireAccessToken(){
+		this.accessTokenExpiresTime = 0;
+	}
+	
 	public void expireWxCardTicket() {
 		this.wxCardTicketExpiresTime = 0;
 	}
