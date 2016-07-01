@@ -5,14 +5,6 @@
  */
 package com.mohoo.config;
 
-import java.io.IOException;
-import java.util.Map;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.alibaba.fastjson.JSONObject;
-import com.mohoo.util.OkHttpUtil;
-import com.mohoo.util.PropertiesUtil;
 
 /**
  * 类描述
