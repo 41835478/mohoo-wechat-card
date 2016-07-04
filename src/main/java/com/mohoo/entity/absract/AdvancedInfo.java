@@ -23,7 +23,7 @@ public class AdvancedInfo {
 	protected Abstract abstract1;///
 	protected TextImage [] text_image_list;
 	protected String[] business_service;//
-	protected TimeLimit time_limit;//
+	protected TimeLimit [] time_limit;//
 	
 	
 	public UseCondition getUse_condition() {
@@ -62,10 +62,10 @@ public class AdvancedInfo {
 	public void setBusiness_service(String [] business_service) {
 		this.business_service = business_service;
 	}
-	public TimeLimit getTime_limit() {
+	public TimeLimit [] getTime_limit() {
 		return time_limit;
 	}
-	public void setTime_limit(TimeLimit time_limit) {
+	public void setTime_limit(TimeLimit[] time_limit) {
 		this.time_limit = time_limit;
 	}
 }

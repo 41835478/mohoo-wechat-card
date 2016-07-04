@@ -18,6 +18,19 @@ import java.util.Map;
  * @version 1.0
  */
 public class BaseInfo {
+	public static String COLOR010="Color010";
+	public static String COLOR020="Color020";
+	public static String COLOR030="Color030";
+	public static String COLOR040="Color040";
+	public static String COLOR050="Color050";
+	public static String COLOR060="Color060";
+	public static String COLOR070="Color070";
+	public static String COLOR080="Color080";
+	public static String COLOR090="Color090";
+	public static String COLOR100="Color100";
+	public static String COLOR101="Color101";
+	public static String COLOR102="Color102";
+	
 	/**
 	 * 必填字段
 	 */
@@ -30,10 +43,9 @@ public class BaseInfo {
 	protected String notice;
 	protected String description;
 	protected Map<String,Object> sku;
-	protected int quantity;
 	protected DateInfo date_info;
-	protected int fixed_term;
-	protected int fixed_begin_term;
+//	protected int fixed_term;
+//	protected int fixed_begin_term;
 	
 	/**
 	 * 非必填字段
@@ -43,10 +55,10 @@ public class BaseInfo {
 	protected String service_phone;
 	protected int [] location_id_list;
 	protected String source;
-	protected String custom_url_name;
 	protected String center_title;
 	protected String center_sub_title;
 	protected String center_url;
+	protected String custom_url_name;
 	protected String custom_url;
 	protected String custom_url_sub_title;
 	protected String promotion_url_name;
@@ -111,30 +123,24 @@ public class BaseInfo {
 	public void setSku(Map<String, Object> sku) {
 		this.sku = sku;
 	}
-	public int getQuantity() {
-		return quantity;
-	}
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
 	public DateInfo getDate_info() {
 		return date_info;
 	}
 	public void setDate_info(DateInfo date_info) {
 		this.date_info = date_info;
 	}
-	public int getFixed_term() {
-		return fixed_term;
-	}
-	public void setFixed_term(int fixed_term) {
-		this.fixed_term = fixed_term;
-	}
-	public int getFixed_begin_term() {
-		return fixed_begin_term;
-	}
-	public void setFixed_begin_term(int fixed_begin_term) {
-		this.fixed_begin_term = fixed_begin_term;
-	}
+//	public int getFixed_term() {
+//		return fixed_term;
+//	}
+//	public void setFixed_term(int fixed_term) {
+//		this.fixed_term = fixed_term;
+//	}
+//	public int getFixed_begin_term() {
+//		return fixed_begin_term;
+//	}
+//	public void setFixed_begin_term(int fixed_begin_term) {
+//		this.fixed_begin_term = fixed_begin_term;
+//	}
 	public boolean isUse_custom_code() {
 		return use_custom_code;
 	}

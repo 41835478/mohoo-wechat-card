@@ -18,7 +18,7 @@ package com.mohoo.entity.baseinfo;
 public class DateInfo {
 	protected String type;
 	protected int begin_timestamp;
-	protected int end_teimstamp;
+	protected int end_timestamp;
 	public String getType() {
 		return type;
 	}
@@ -31,18 +31,19 @@ public class DateInfo {
 	public void setBegin_timestamp(int begin_timestamp) {
 		this.begin_timestamp = begin_timestamp;
 	}
-	public int getEnd_teimstamp() {
-		return end_teimstamp;
+	
+	public int getEnd_timestamp() {
+		return end_timestamp;
 	}
-	public void setEnd_teimstamp(int end_teimstamp) {
-		this.end_teimstamp = end_teimstamp;
+	public void setEnd_timestamp(int end_timestamp) {
+		this.end_timestamp = end_timestamp;
 	}
 	public DateInfo(){
 		
 	}
-	public DateInfo(String type,int begin_timestamp,int end_teimstamp){
+	public DateInfo(String type,int begin_timestamp,int end_timestamp){
 		this.type=type;
 		this.begin_timestamp=begin_timestamp;
-		this.end_teimstamp=end_teimstamp;
+		this.end_timestamp=end_timestamp;
 	}
 }
