@@ -50,7 +50,7 @@ public class WxServiceTest{
 	public static String OPEN_ID="oKXUCjyMRHD12cQLDxZiLpxtEdJE";
 	BaseConfig bc=new BaseConfig();
 //	public static String OPEN_ID="oVzhVw9-PXV427t6PWjDWxyoaoQ4";
-	@Before
+//	@Before
 	public void init(){
 		wcs.setBaseConfig(bc);
 	}
@@ -60,7 +60,7 @@ public class WxServiceTest{
 	 * 上传logo
 	 * 方法描述
 	 */
-	@Test
+//	@Test
 	public void uploadImage(){
 		String imgurl=null;
 		try {
@@ -77,7 +77,7 @@ public class WxServiceTest{
 	 * 创建卡劵
 	 * 方法描述
 	 */
-	@Test
+//	@Test
 	public void createCard(){
 		String cardId=null;
 		try {
@@ -150,7 +150,7 @@ public class WxServiceTest{
 	 * 创建二维码
 	 * 方法描述
 	 */
-	@After
+//	@After
 	public void creatQrcode(){
 		Map<String,Object> paramMap=new HashMap<String, Object>();
 		paramMap.put("action_name", "QR_CARD");
@@ -186,7 +186,7 @@ public class WxServiceTest{
 	 * 设置测试白名单
 	 * 方法描述
 	 */
-	@Test
+//	@Test
 	public void setTestWhiteList(){
 		Map<String,Object> resultMap=null;
 		try {
