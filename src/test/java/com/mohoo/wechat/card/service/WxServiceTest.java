@@ -10,8 +10,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mohoo.wechat.card.config.BaseConfig;
@@ -37,37 +41,40 @@ import com.mohoo.wechat.card.entity.coupon.GroupOn;
  * @author Administrator
  * @version 1.0
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WxServiceTest{
 	WxConsumeService wcs=new WxConsumeService();
-	@Test
+	
+	public static String IMG_URL="http://mmbiz.qpic.cn/mmbiz/LLialCGQGiaEd0RibuxJWUVrYLJIh8pAyxz71pXXSXYgQOlaekYmXcOmxQVUxZ2wA3icLMIn044IggSFc63wVtASsA/0";
+	public static String CARD_ID="pKXUCj0H0h4XsVe4znnvMdL63Ti0";
+	public static String OPEN_ID="oKXUCjyMRHD12cQLDxZiLpxtEdJE";
+//	public static String OPEN_ID="oVzhVw9-PXV427t6PWjDWxyoaoQ4";
+	@Before
 	public void init(){
 		BaseConfig bc=new BaseConfig();
 		wcs.setBaseConfig(bc);
 	}
 	
-	@Test
-	public void getAccessToken(){
-		System.out.println("--");
-		Assert.assertNotNull("");
-	}
-	
 	/**
 	 * http://mmbiz.qpic.cn/mmbiz/LLialCGQGiaEd0RibuxJWUVrYLJIh8pAyxz71pXXSXYgQOlaekYmXcOmxQVUxZ2wA3icLMIn044IggSFc63wVtASsA/0
+	 * 上传logo
 	 * 方法描述
 	 */
 	@Test
 	public void uploadImage(){
 		String imgurl=null;
 		try {
-			imgurl=wcs.uploadImgToJson(new File("D:\\test.png"));
+			imgurl=wcs.uploadImgToJson(new File("file/test.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		System.out.println("imgurl:"+imgurl);
+		IMG_URL=imgurl;
 		Assert.assertNotNull(imgurl);
 	}
 	/**
 	 * pVzhVw_RWKVJqMNFsNlPC698yb14
+	 * 创建卡劵
 	 * 方法描述
 	 */
 	@Test
@@ -76,10 +83,10 @@ public class WxServiceTest{
 		try {
 //			wcs.createCardToJson("");
 			BaseInfo bi=new BaseInfo();
-			bi.setLogo_url("http://mmbiz.qpic.cn/mmbiz/LLialCGQGiaEd0RibuxJWUVrYLJIh8pAyxz71pXXSXYgQOlaekYmXcOmxQVUxZ2wA3icLMIn044IggSFc63wVtASsA/0");
-			bi.setBrand_name("微信餐厅");
+			bi.setLogo_url(IMG_URL);
+			bi.setBrand_name("测试餐厅");
 			bi.setCode_type("CODE_TYPE_TEXT");
-			bi.setTitle("132元双人火锅套餐");
+			bi.setTitle("huang——测试卡劵");
 			bi.setSub_title("周末狂欢必备");
 			bi.setColor(BaseInfo.COLOR010);
 			bi.setNotice("使用时向服务员出示此券");
@@ -93,7 +100,7 @@ public class WxServiceTest{
 			bi.setCan_share(true);
 			bi.setCan_give_friend(true);
 			bi.setLocation_id_list(new int[]{123,123456,123456789});
-			bi.setCenter_title("顶部居中按钮");
+			bi.setCenter_title("立即使用");
 			bi.setCenter_sub_title("按钮下方的wording");
 			bi.setCenter_url("www.qq.com");
 			bi.setCustom_url_name("立即使用");
@@ -136,9 +143,14 @@ public class WxServiceTest{
 			e.printStackTrace();
 		}
 		System.out.println("cardId:"+cardId);
+		CARD_ID=cardId;
 		Assert.assertNotNull(cardId);
 	}
-	@Test
+	/**
+	 * 创建二维码
+	 * 方法描述
+	 */
+	@After
 	public void creatQrcode(){
 		Map<String,Object> paramMap=new HashMap<String, Object>();
 		paramMap.put("action_name", "QR_CARD");
@@ -146,20 +158,81 @@ public class WxServiceTest{
 		Map<String,Object> actionMap=new HashMap<String, Object>();
 		
 		Map<String,Object> cardMap=new HashMap<String, Object>();
-		cardMap.put("card_id","pFS7Fjg8kV1IdDz01r4SQwMkuCKc");
-		cardMap.put("code","198374613512");
-		cardMap.put("openid","oFS7Fjl0WsZ9AMZqrI80nbIq8xrA");
+		cardMap.put("card_id",CARD_ID);
+		cardMap.put("code","123456789_test");
+		cardMap.put("openid",OPEN_ID);
 		cardMap.put("is_unique_code",false);
 		cardMap.put("outer_id",1);
 		actionMap.put("card", cardMap);
 		paramMap.put("action_info", actionMap);
 		System.out.println(paramMap);
 		Map<String,Object> resultMap=null;
-//		try {
-//			resultMap=wcs.createQrcode(paramMap);
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		Assert.assertNotNull(resultMap);
+		try {
+			resultMap=wcs.createQrcode(paramMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(resultMap);
+		Assert.assertNotNull(resultMap);
+		Assert.assertNotNull(resultMap.get("show_qrcode_url"));
+		Assert.assertNotNull(resultMap.get("ticket"));
+		String qrcodeurl=resultMap.get("show_qrcode_url").toString();
+		String ticket=resultMap.get("ticket").toString();
+		System.out.println(qrcodeurl);
+		System.out.println(ticket);
+	}
+	
+	/**
+	 * 设置测试白名单
+	 * 方法描述
+	 */
+	@Test
+	public void setTestWhiteList(){
+		Map<String,Object> resultMap=null;
+		try {
+			resultMap=wcs.testWhiteList(new String[]{OPEN_ID}, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Assert.assertNotNull(resultMap);
+		System.out.println(resultMap);
+		Assert.assertEquals(resultMap.get("errcode").toString(),"0");
+	}
+	
+	/**
+	 * 查询code
+	 */
+	String code="947363396944";
+//	@Test
+	public void searchCode(){
+		Map<String,Object> paramMap=new HashMap<String, Object>();
+		paramMap.put("card_id", CARD_ID);
+		paramMap.put("code", code);
+		paramMap.put("check_consume", true);
+		Map<String,Object> resultMap=null;
+		try {
+			resultMap=wcs.getCode(paramMap);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("searchCode:"+resultMap);
+		Assert.assertNotNull(resultMap);
+		Assert.assertEquals(resultMap.get("errcode").toString(),"0");
+	}
+	/**
+	 * 核销卡劵
+	 * 方法描述
+	 */
+//	@Test
+	public void consumeCard(){
+		Map<String,Object> resultMap=null;
+		try {
+			resultMap=wcs.consumeCode(CARD_ID, code);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(resultMap);
+		Assert.assertNotNull(resultMap);
+		Assert.assertEquals(resultMap.get("errcode").toString(),"0");
 	}
 }

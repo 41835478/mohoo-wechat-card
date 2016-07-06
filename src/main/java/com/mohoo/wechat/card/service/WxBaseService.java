@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.mohoo.wechat.card.config.BaseConfig;
 import com.mohoo.wechat.card.util.OkHttpUtil;
+import com.mohoo.wechat.card.util.PropertiesUtil;
 
 /**
  * 类描述
@@ -100,18 +101,18 @@ public class WxBaseService {
 	 * @throws IOException
 	 */
 	protected String findAccessToken() throws IOException {
-//		String jsonMap = OkHttpUtil.doGetHttpRequest(PropertiesUtil
-//				.getPropertyPath("weixin.access_token"));
-//		if (StringUtils.isNotEmpty(jsonMap)) {
-//			Map<String, Object> resultMap = JSONObject.parseObject(jsonMap);
-//			if (resultMap.get("status") != null
-//					&& StringUtils.isNotEmpty(resultMap.get("status")
-//							.toString())
-//					&& StringUtils.equals(resultMap.get("status").toString(),
-//							"200") && resultMap.get("data") != null) {
-//				return resultMap.get("data").toString();
-//			}
-//		}
+		String jsonMap = OkHttpUtil.doGetHttpRequest(PropertiesUtil
+				.getPropertyPath("weixin.access_token"));
+		if (StringUtils.isNotEmpty(jsonMap)) {
+			Map<String, Object> resultMap = JSONObject.parseObject(jsonMap);
+			if (resultMap.get("status") != null
+					&& StringUtils.isNotEmpty(resultMap.get("status")
+							.toString())
+					&& StringUtils.equals(resultMap.get("status").toString(),
+							"200") && resultMap.get("data") != null) {
+				return resultMap.get("data").toString();
+			}
+		}
 		return null;
 	}
 
@@ -126,8 +127,8 @@ public class WxBaseService {
 			if (url.indexOf("access_token=") != -1) {
 				throw new IllegalArgumentException("uri参数中不允许有access_token: " + url);
 			}
-//			String accessToken = getAccessToken(false);
-			String accessToken="VE357QVNQ5bBpTLxLAjy4nhm-fD0o4TNsmDQf3XgcONLRmZ1PZRSjjo2KyCK38PPZX4fHJ5CDpKYd98yQtdd_fwd5_NuJ8cwhdEheN1jVlst1g3-VmWu0dx4SDi5KMBpQFSjAHABQD";
+			String accessToken = getAccessToken(false);
+//			String accessToken="Ubbk_WbcHSx4GAVs-UQIgkT0Gjftcc3ZTqhG58gCEmt_KqQHWBJGt_MfpgutFAbJUy8BVdm8cUzQB4F0KzTryer-Jyrft5RCg_u8nucxWgBayT1eqi_JCSvUBTbsUIIbFWEhACARIQ";
 			url += url.indexOf('?') == -1 ? "?access_token=" + accessToken : "&access_token=" + accessToken;
 		}
 		return url;
@@ -195,9 +196,4 @@ public class WxBaseService {
 		}
 		return resultMap;
 	}
-//	public static void main(String[] args) throws IOException {
-//		String info=OkHttpUtil.doPostImgHttpRequest(PropertiesUtil.getPropertyPath("weixin.uploadimg").concat("?access_token=").concat("EHtK5E15NwSOa87MhIoDRU1U4cpp2SVWCu74QZfoyWiqJDGMYnhRGiAxDHGpN4TqbVo-pk22XKk7R05TA0vV14lFijieIPWgCWCLLvfr0foGOCfAAAWES"),new File("D:/test.png"));
-//		System.out.println(info);
-//	}
-
 }
