@@ -48,10 +48,10 @@ public class WxServiceTest{
 	public static String IMG_URL="http://mmbiz.qpic.cn/mmbiz/LLialCGQGiaEd0RibuxJWUVrYLJIh8pAyxz71pXXSXYgQOlaekYmXcOmxQVUxZ2wA3icLMIn044IggSFc63wVtASsA/0";
 	public static String CARD_ID="pKXUCj0H0h4XsVe4znnvMdL63Ti0";
 	public static String OPEN_ID="oKXUCjyMRHD12cQLDxZiLpxtEdJE";
+	BaseConfig bc=new BaseConfig();
 //	public static String OPEN_ID="oVzhVw9-PXV427t6PWjDWxyoaoQ4";
 	@Before
 	public void init(){
-		BaseConfig bc=new BaseConfig();
 		wcs.setBaseConfig(bc);
 	}
 	
