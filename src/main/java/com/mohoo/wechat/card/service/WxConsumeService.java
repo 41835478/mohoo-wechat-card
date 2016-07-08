@@ -36,8 +36,8 @@ public class WxConsumeService extends WxPushService {
 	 */
 	public Map<String, Object> getCode(Map<String, Object> paramMap)
 			throws IOException {
-		String getCodeUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.get_code"));
+		String getCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.get_code");
 		return excutePost(getCodeUrl, JSONObject.toJSONString(paramMap));
 	}
 
@@ -50,8 +50,8 @@ public class WxConsumeService extends WxPushService {
 	 */
 	public Map<String, Object> consumeCode(Map<String, Object> paramMap)
 			throws IOException {
-		String consumeCodeUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.consume_code"));
+		String consumeCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.consume_code");
 		return excutePost(consumeCodeUrl, JSONObject.toJSONString(paramMap));
 	}
 
@@ -60,8 +60,8 @@ public class WxConsumeService extends WxPushService {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("code", code);
 		paramMap.put("card_id", cardId);
-		String consumeCodeUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.consume_code"));
+		String consumeCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.consume_code");
 		return excutePost(consumeCodeUrl, JSONObject.toJSONString(paramMap));
 	}
 
@@ -73,16 +73,16 @@ public class WxConsumeService extends WxPushService {
 	 */
 	public Map<String, Object> decryptCode(String encrptCode)
 			throws IOException {
-		String consumeCodeUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.consume_code"));
+		String consumeCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.consume_code");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("encrypt_code", encrptCode);
 		return excutePost(consumeCodeUrl, JSONObject.toJSONString(paramMap));
 	}
 
 	public String decryptCodeToJson(String encrptCode) throws IOException {
-		String consumeCodeUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.consume_code"));
+		String consumeCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.consume_code");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("encrypt_code", encrptCode);
 		Map<String, Object> resultMap = excutePost(consumeCodeUrl,

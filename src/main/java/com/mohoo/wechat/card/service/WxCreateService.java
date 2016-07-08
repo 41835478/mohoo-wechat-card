@@ -38,14 +38,14 @@ public class WxCreateService extends WxBaseService {
 	 * @throws IOException
 	 */
 	public Map<String, Object> uploadImg(File file) throws IOException {
-		String imgUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.uploadimg"));
+		String imgUrl = PropertiesUtil
+				.getPropertyPath("weixin.uploadimg");
 		return excutePostFile(imgUrl, file);
 	}
 
 	public String uploadImgToJson(File file) throws IOException {
-		String imgUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.uploadimg"));
+		String imgUrl = PropertiesUtil
+				.getPropertyPath("weixin.uploadimg");
 		Map<String, Object> resultMap = excutePostFile(imgUrl, file);
 		if (resultMap.get("url") != null) {
 			return resultMap.get("url").toString();
@@ -112,8 +112,8 @@ public class WxCreateService extends WxBaseService {
 
 	protected Map<String, Object> callCreateCard(String json)
 			throws IOException {
-		String createUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.card_create"));
+		String createUrl = PropertiesUtil
+				.getPropertyPath("weixin.card_create");
 		return excutePost(createUrl, json);
 	}
 
@@ -126,8 +126,8 @@ public class WxCreateService extends WxBaseService {
 	 */
 	public Map<String, Object> setPayCell(String CardId, boolean isOpen)
 			throws IOException {
-		String payCellUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.paycell"));
+		String payCellUrl = PropertiesUtil
+				.getPropertyPath("weixin.paycell");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("card_id", CardId);
 		paramMap.put("is_open", isOpen);
@@ -136,8 +136,8 @@ public class WxCreateService extends WxBaseService {
 
 	public boolean setPayCellToJson(String CardId, boolean isOpen)
 			throws IOException {
-		String payCellUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.paycell"));
+		String payCellUrl = PropertiesUtil
+				.getPropertyPath("weixin.paycell");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("card_id", CardId);
 		paramMap.put("is_open", isOpen);
@@ -160,8 +160,8 @@ public class WxCreateService extends WxBaseService {
 	 */
 	public Map<String, Object> setSelfconsumecell(String CardId, boolean isOpen)
 			throws IOException {
-		String selfconsumecellUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.selfconsumecell"));
+		String selfconsumecellUrl = PropertiesUtil
+				.getPropertyPath("weixin.selfconsumecell");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("card_id", CardId);
 		paramMap.put("is_open", isOpen);
@@ -170,8 +170,8 @@ public class WxCreateService extends WxBaseService {
 
 	public boolean setSelfconsumecellToJson(String CardId, boolean isOpen)
 			throws IOException {
-		String selfconsumecellUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.selfconsumecell"));
+		String selfconsumecellUrl = PropertiesUtil
+				.getPropertyPath("weixin.selfconsumecell");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("card_id", CardId);
 		paramMap.put("is_open", isOpen);

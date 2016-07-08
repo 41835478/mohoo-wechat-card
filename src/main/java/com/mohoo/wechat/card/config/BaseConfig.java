@@ -24,6 +24,13 @@ public class BaseConfig {
 
 	protected volatile String wxCardTicket;
 	protected volatile long wxCardTicketExpiresTime;
+	
+	protected volatile String appid;
+	protected volatile String secret;
+	
+	protected volatile String accessTokenUrl;
+	
+	protected volatile boolean isGetToken=false;
 
 	public String getAccessToken() {
 		return accessToken;
@@ -87,5 +94,37 @@ public class BaseConfig {
 
 	public void expireWxCardTicket() {
 		this.wxCardTicketExpiresTime = 0;
+	}
+
+	public String getAppid() {
+		return appid;
+	}
+
+	public void setAppid(String appid) {
+		this.appid = appid;
+	}
+
+	public String getSecret() {
+		return secret;
+	}
+
+	public void setSecret(String secret) {
+		this.secret = secret;
+	}
+
+	public String getAccessTokenUrl() {
+		return accessTokenUrl;
+	}
+
+	public void setAccessTokenUrl(String accessTokenUrl) {
+		this.accessTokenUrl = accessTokenUrl;
+	}
+
+	public boolean isGetToken() {
+		return isGetToken;
+	}
+
+	public void setGetToken(boolean isGetToken) {
+		this.isGetToken = isGetToken;
 	}
 }

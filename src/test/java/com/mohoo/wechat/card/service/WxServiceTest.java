@@ -52,7 +52,7 @@ public class WxServiceTest {
 	BaseConfig bc = new BaseConfig();
 
 	// public static String OPEN_ID="oVzhVw9-PXV427t6PWjDWxyoaoQ4";
-	// @Before
+	 @Before
 	public void init() {
 		wcs.setBaseConfig(bc);
 	}
@@ -62,7 +62,7 @@ public class WxServiceTest {
 	 * LLialCGQGiaEd0RibuxJWUVrYLJIh8pAyxz71pXXSXYgQOlaekYmXcOmxQVUxZ2wA3icLMIn044IggSFc63wVtASsA
 	 * /0 上传logo 方法描述
 	 */
-	// @Test
+//	 @Test
 	public void uploadImage() {
 		String imgurl = null;
 		try {

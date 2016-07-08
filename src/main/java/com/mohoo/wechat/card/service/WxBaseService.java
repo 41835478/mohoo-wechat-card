@@ -73,23 +73,34 @@ public class WxBaseService {
 		}
 		if (baseConfig.isAccessTokenExpired()) {
 			synchronized (globalAccessTokenRefreshLock) {
-				while (true) {
-					String accessToken = "";
-					try {
-						accessToken = findAccessToken();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					if (StringUtils.isNotEmpty(accessToken)) {
-						baseConfig.updateAccessToken(accessToken, expiredTime);
-						logger.info("==========accessToken:" + accessToken);
-						break;
-					}
-					try {
-						Thread.sleep(sleepTime);
-						logger.info("==========token result is baded,after sleep one second,refresh token!");
-					} catch (InterruptedException e) {
-						e.printStackTrace();
+				if (baseConfig.isAccessTokenExpired()) {
+					while (true) {
+						String accessToken = "";
+						if (baseConfig.isGetToken()) {
+							try {
+								accessToken = findAccessToken2();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						} else {
+							try {
+								accessToken = findAccessToken();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+						if (StringUtils.isNotEmpty(accessToken)) {
+							baseConfig.updateAccessToken(accessToken,
+									expiredTime);
+							logger.info("==========accessToken:" + accessToken);
+							break;
+						}
+						try {
+							Thread.sleep(sleepTime);
+							logger.info("==========token result is baded,after sleep one second,refresh token!");
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
 					}
 				}
 			}
@@ -114,6 +125,28 @@ public class WxBaseService {
 					&& StringUtils.equals(resultMap.get("status").toString(),
 							"200") && resultMap.get("data") != null) {
 				return resultMap.get("data").toString();
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * 调用接口获取参数 方法描述
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	protected String findAccessToken2() throws IOException {
+		String jsonMap = OkHttpUtil.doGetHttpRequest(PropertiesUtil
+				.getPropertyPath("weixin.get_access_token").concat("&appid=")
+				.concat(baseConfig.getAppid()).concat("&secret=")
+				.concat(baseConfig.getSecret()));
+		if (StringUtils.isNotEmpty(jsonMap)) {
+			Map<String, Object> resultMap = JSONObject.parseObject(jsonMap);
+			if (resultMap.get("access_token") != null
+					&& StringUtils.isNotEmpty(resultMap.get("access_token")
+							.toString())) {
+				return resultMap.get("access_token").toString();
 			}
 		}
 		return null;
@@ -146,7 +179,7 @@ public class WxBaseService {
 	 * @throws IOException
 	 */
 	protected Map<String, Object> excuteGet(String url) throws IOException {
-		String info = OkHttpUtil.doGetHttpRequest(url);
+		String info = OkHttpUtil.doGetHttpRequest(getRealyUrl(url));
 		Map<String, Object> resultMap = JSONObject.parseObject(info);
 		if (resultMap.get("errcode") != null) {
 			String errcode = resultMap.get("errcode").toString();
@@ -169,7 +202,7 @@ public class WxBaseService {
 	 */
 	protected Map<String, Object> excutePost(String url, String data)
 			throws IOException {
-		String info = OkHttpUtil.doPostHttpRequest(url, data);
+		String info = OkHttpUtil.doPostHttpRequest(getRealyUrl(url), data);
 		Map<String, Object> resultMap = JSONObject.parseObject(info);
 		if (resultMap.get("errcode") != null) {
 			String errcode = resultMap.get("errcode").toString();
@@ -192,7 +225,7 @@ public class WxBaseService {
 	 */
 	protected Map<String, Object> excutePostFile(String url, File file)
 			throws IOException {
-		String info = OkHttpUtil.doPostImgHttpRequest(url, file);
+		String info = OkHttpUtil.doPostImgHttpRequest(getRealyUrl(url), file);
 		Map<String, Object> resultMap = JSONObject.parseObject(info);
 		if (resultMap.get("errcode") != null) {
 			String errcode = resultMap.get("errcode").toString();

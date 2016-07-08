@@ -36,8 +36,8 @@ public class WxPushService extends WxCreateService {
 	 */
 	public Map<String, Object> createQrcode(Map<String, Object> paramMap)
 			throws IOException {
-		String createQrcodeUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.qrcode_create"));
+		String createQrcodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.qrcode_create");
 		return excutePost(createQrcodeUrl, JSONObject.toJSONString(paramMap));
 	}
 
@@ -50,8 +50,8 @@ public class WxPushService extends WxCreateService {
 	 */
 	public Map<String, Object> createLandingpage(Map<String, Object> paramMap)
 			throws IOException {
-		String createLandingpageUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.qrcode_create"));
+		String createLandingpageUrl = PropertiesUtil
+				.getPropertyPath("weixin.qrcode_create");
 		return excutePost(createLandingpageUrl,
 				JSONObject.toJSONString(paramMap));
 	}
@@ -65,8 +65,8 @@ public class WxPushService extends WxCreateService {
 	 */
 	public Map<String, Object> depositCode(Map<String, Object> paramMap)
 			throws IOException {
-		String depositCodeUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.deposit_code"));
+		String depositCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.deposit_code");
 		return excutePost(depositCodeUrl, JSONObject.toJSONString(paramMap));
 	}
 
@@ -81,14 +81,14 @@ public class WxPushService extends WxCreateService {
 			throws IOException {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("card_id", cardId);
-		String getDepositCountUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.deposit_code"));
+		String getDepositCountUrl = PropertiesUtil
+				.getPropertyPath("weixin.deposit_code");
 		return excutePost(getDepositCountUrl, JSONObject.toJSONString(paramMap));
 	}
 
 	public int getDepositCountToJson(String cardId) throws IOException {
-		String getDepositCountUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.getdepositcount"));
+		String getDepositCountUrl = PropertiesUtil
+				.getPropertyPath("weixin.getdepositcount");
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("card_id", cardId);
 		Map<String, Object> resultMap = excutePost(getDepositCountUrl,
@@ -115,8 +115,8 @@ public class WxPushService extends WxCreateService {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("card_id", cardId);
 		paramMap.put("code", code);
-		String checkCodeUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.checkcode"));
+		String checkCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.checkcode");
 		return excutePost(checkCodeUrl, JSONObject.toJSONString(paramMap));
 	}
 
@@ -130,8 +130,8 @@ public class WxPushService extends WxCreateService {
 	public Map<String, Object> mpNewsGetHtml(String cardId) throws IOException {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("card_id", cardId);
-		String mpNewsGetHtml = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.mpnews_gethtml"));
+		String mpNewsGetHtml = PropertiesUtil
+				.getPropertyPath("weixin.mpnews_gethtml");
 		return excutePost(mpNewsGetHtml, JSONObject.toJSONString(paramMap));
 	}
 
@@ -148,8 +148,8 @@ public class WxPushService extends WxCreateService {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("openid", openids);
 		paramMap.put("username", usernames);
-		String testWhiteListUrl = getRealyUrl(PropertiesUtil
-				.getPropertyPath("weixin.testwhitelist"));
+		String testWhiteListUrl = PropertiesUtil
+				.getPropertyPath("weixin.testwhitelist");
 		return excutePost(testWhiteListUrl, JSONObject.toJSONString(paramMap));
 	}
 }
