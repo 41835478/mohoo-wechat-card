@@ -110,8 +110,8 @@ public class OkHttpUtil {
 				.type(MultipartBuilder.FORM)
 				.addFormDataPart("buffer", file.getName(),
 						RequestBody.create(MEDIA_TYPE_PNG, file)).build();
-		Request request = new Request.Builder().url(url)
-				.post(requestBody).build();
+		Request request = new Request.Builder().url(url).post(requestBody)
+				.build();
 		Response response = client.newCall(request).execute();
 		if (!response.isSuccessful()) {
 			System.out.println("服务端错误：" + response);

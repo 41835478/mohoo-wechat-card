@@ -50,18 +50,20 @@ public class WxBaseService {
 	public void setBaseConfig(BaseConfig baseConfig) {
 		this.baseConfig = baseConfig;
 	}
+
 	/**
-	 * 获取access_token
-	 * 方法描述
+	 * 获取access_token 方法描述
+	 * 
 	 * @param flag
 	 * @return
 	 */
 	public String getAccessToken() {
 		return getAccessToken(false);
 	}
+
 	/**
-	 * 获取access_token
-	 * 方法描述
+	 * 获取access_token 方法描述
+	 * 
 	 * @param flag
 	 * @return
 	 */
@@ -94,9 +96,10 @@ public class WxBaseService {
 		}
 		return baseConfig.getAccessToken();
 	}
+
 	/**
-	 * 调用接口获取参数
-	 * 方法描述
+	 * 调用接口获取参数 方法描述
+	 * 
 	 * @return
 	 * @throws IOException
 	 */
@@ -117,81 +120,86 @@ public class WxBaseService {
 	}
 
 	/**
-	 * 请求接口补全参数access_token
-	 * 方法描述
+	 * 请求接口补全参数access_token 方法描述
+	 * 
 	 * @param url
 	 * @return
 	 */
-	protected String getRealyUrl(String url){
+	protected String getRealyUrl(String url) {
 		if (StringUtils.isNotEmpty(url)) {
 			if (url.indexOf("access_token=") != -1) {
-				throw new IllegalArgumentException("uri参数中不允许有access_token: " + url);
+				throw new IllegalArgumentException("uri参数中不允许有access_token: "
+						+ url);
 			}
 			String accessToken = getAccessToken(false);
-//			String accessToken="Ubbk_WbcHSx4GAVs-UQIgkT0Gjftcc3ZTqhG58gCEmt_KqQHWBJGt_MfpgutFAbJUy8BVdm8cUzQB4F0KzTryer-Jyrft5RCg_u8nucxWgBayT1eqi_JCSvUBTbsUIIbFWEhACARIQ";
-			url += url.indexOf('?') == -1 ? "?access_token=" + accessToken : "&access_token=" + accessToken;
+			url += url.indexOf('?') == -1 ? "?access_token=" + accessToken
+					: "&access_token=" + accessToken;
 		}
 		return url;
 	}
 
 	/**
-	 * *******************************************************************************************
-	 */
-	/**
-	 * 普通get请求方法
-	 * 方法描述
+	 * 普通get请求方法 方法描述
+	 * 
 	 * @param url
 	 * @return
 	 * @throws IOException
 	 */
-	protected Map<String,Object> excuteGet(String url) throws IOException{
-		String info=OkHttpUtil.doGetHttpRequest(url);
-		Map<String,Object> resultMap=JSONObject.parseObject(info);
-		if (resultMap.get("errcode")!=null) {
-			String errcode=resultMap.get("errcode").toString();
-			if (StringUtils.equals(errcode, "42001")||StringUtils.equals(errcode, "40001")) {
+	protected Map<String, Object> excuteGet(String url) throws IOException {
+		String info = OkHttpUtil.doGetHttpRequest(url);
+		Map<String, Object> resultMap = JSONObject.parseObject(info);
+		if (resultMap.get("errcode") != null) {
+			String errcode = resultMap.get("errcode").toString();
+			if (StringUtils.equals(errcode, "42001")
+					|| StringUtils.equals(errcode, "40001")) {
 				baseConfig.expireAccessToken();
 				return excuteGet(url);
 			}
 		}
 		return resultMap;
 	}
+
 	/**
-	 * 普通post请求方法
-	 * 方法描述
+	 * 普通post请求方法 方法描述
+	 * 
 	 * @param url
 	 * @param data
 	 * @return
 	 * @throws IOException
 	 */
-	protected Map<String,Object> excutePost(String url ,String data) throws IOException{
-		String info=OkHttpUtil.doPostHttpRequest(url,data);
-		Map<String,Object> resultMap=JSONObject.parseObject(info);
-		if (resultMap.get("errcode")!=null) {
-			String errcode=resultMap.get("errcode").toString();
-			if (StringUtils.equals(errcode, "42001")||StringUtils.equals(errcode, "40001")) {
+	protected Map<String, Object> excutePost(String url, String data)
+			throws IOException {
+		String info = OkHttpUtil.doPostHttpRequest(url, data);
+		Map<String, Object> resultMap = JSONObject.parseObject(info);
+		if (resultMap.get("errcode") != null) {
+			String errcode = resultMap.get("errcode").toString();
+			if (StringUtils.equals(errcode, "42001")
+					|| StringUtils.equals(errcode, "40001")) {
 				baseConfig.expireAccessToken();
-				return excutePost(url,data);
+				return excutePost(url, data);
 			}
 		}
 		return resultMap;
 	}
+
 	/**
-	 * 调用接口，上传文件
-	 * 方法描述
+	 * 调用接口，上传文件 方法描述
+	 * 
 	 * @param url
 	 * @param file
 	 * @return
 	 * @throws IOException
 	 */
-	protected Map<String,Object> excutePostFile(String url ,File file) throws IOException{
-		String info=OkHttpUtil.doPostImgHttpRequest(url,file);
-		Map<String,Object> resultMap=JSONObject.parseObject(info);
-		if (resultMap.get("errcode")!=null) {
-			String errcode=resultMap.get("errcode").toString();
-			if (StringUtils.equals(errcode, "42001")||StringUtils.equals(errcode, "40001")) {
+	protected Map<String, Object> excutePostFile(String url, File file)
+			throws IOException {
+		String info = OkHttpUtil.doPostImgHttpRequest(url, file);
+		Map<String, Object> resultMap = JSONObject.parseObject(info);
+		if (resultMap.get("errcode") != null) {
+			String errcode = resultMap.get("errcode").toString();
+			if (StringUtils.equals(errcode, "42001")
+					|| StringUtils.equals(errcode, "40001")) {
 				baseConfig.expireAccessToken();
-				return excutePostFile(url,file);
+				return excutePostFile(url, file);
 			}
 		}
 		return resultMap;

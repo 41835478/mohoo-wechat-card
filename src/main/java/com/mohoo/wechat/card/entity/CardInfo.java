@@ -8,23 +8,27 @@ package com.mohoo.wechat.card.entity;
 import com.mohoo.wechat.card.entity.card.Card;
 
 /**
- * 类描述 <p>
+ * 类描述
+ * <p>
  * 创建日期：2016年7月1日<br>
  * 修改历史：<br>
  * 修改日期：<br>
  * 修改作者：<br>
  * 修改内容：<br>
+ * 
  * @author Administrator
  * @version 1.0
  */
 public class CardInfo {
 	protected Card card;
 
-	public CardInfo(){}
-	public CardInfo(Card card){
+	public CardInfo() {
+	}
+
+	public CardInfo(Card card) {
 		this.card = card;
 	}
-	
+
 	public Card getCard() {
 		return card;
 	}
@@ -32,5 +36,5 @@ public class CardInfo {
 	public void setCard(Card card) {
 		this.card = card;
 	}
-	
+
 }

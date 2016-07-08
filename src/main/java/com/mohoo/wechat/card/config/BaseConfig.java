@@ -5,7 +5,6 @@
  */
 package com.mohoo.wechat.card.config;
 
-
 /**
  * 类描述
  * <p>
@@ -22,10 +21,10 @@ public class BaseConfig {
 	protected volatile String accessToken;
 
 	protected volatile long accessTokenExpiresTime;
-	
+
 	protected volatile String wxCardTicket;
 	protected volatile long wxCardTicketExpiresTime;
-	
+
 	public String getAccessToken() {
 		return accessToken;
 	}
@@ -33,7 +32,7 @@ public class BaseConfig {
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
 	}
-	
+
 	public long getAccessTokenExpiresTime() {
 		return accessTokenExpiresTime;
 	}
@@ -41,7 +40,7 @@ public class BaseConfig {
 	public void setAccessTokenExpiresTime(long accessTokenExpiresTime) {
 		this.accessTokenExpiresTime = accessTokenExpiresTime;
 	}
-	
+
 	public String getWxCardTicket() {
 		return wxCardTicket;
 	}
@@ -62,10 +61,10 @@ public class BaseConfig {
 		return System.currentTimeMillis() > this.wxCardTicketExpiresTime;
 	}
 
-	
 	public boolean isAccessTokenExpired() {
 		return System.currentTimeMillis() > this.accessTokenExpiresTime;
 	}
+
 	public synchronized void updateWxCardTicket(String wxCardTicket,
 			int expiresInSeconds) {
 		this.wxCardTicket = wxCardTicket;
@@ -73,6 +72,7 @@ public class BaseConfig {
 		this.wxCardTicketExpiresTime = System.currentTimeMillis()
 				+ (expiresInSeconds - 200) * 1000l;
 	}
+
 	public synchronized void updateAccessToken(String accessToken,
 			int expiresInSeconds) {
 		this.accessToken = accessToken;
@@ -80,10 +80,11 @@ public class BaseConfig {
 		this.accessTokenExpiresTime = System.currentTimeMillis()
 				+ (expiresInSeconds - 200) * 1000l;
 	}
-	public void expireAccessToken(){
+
+	public void expireAccessToken() {
 		this.accessTokenExpiresTime = 0;
 	}
-	
+
 	public void expireWxCardTicket() {
 		this.wxCardTicketExpiresTime = 0;
 	}

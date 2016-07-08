@@ -6,12 +6,14 @@
 package com.mohoo.wechat.card.entity.card;
 
 /**
- * 类描述 <p>
+ * 类描述
+ * <p>
  * 创建日期：2016年7月1日<br>
  * 修改历史：<br>
  * 修改日期：<br>
  * 修改作者：<br>
  * 修改内容：<br>
+ * 
  * @author Administrator
  * @version 1.0
  */

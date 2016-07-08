@@ -6,22 +6,24 @@
 package com.mohoo.wechat.card.entity.coupon;
 
 /**
- * 兑换券
- * 类描述 <p>
+ * 兑换券 类描述
+ * <p>
  * 创建日期：2016年7月1日<br>
  * 修改历史：<br>
  * 修改日期：<br>
  * 修改作者：<br>
  * 修改内容：<br>
+ * 
  * @author Administrator
  * @version 1.0
  */
-public class Gift extends Coupon{
+public class Gift extends Coupon {
 	protected String gift;
 
 	public String getGift() {
 		return gift;
 	}
+
 	public void setGift(String gift) {
 		this.gift = gift;
 	}
