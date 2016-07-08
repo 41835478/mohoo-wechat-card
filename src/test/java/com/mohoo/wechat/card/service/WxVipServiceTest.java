@@ -70,4 +70,16 @@ public class WxVipServiceTest {
 		Assert.assertNotNull(resultMap);
 		Assert.assertEquals(resultMap.get("errcode").toString(),"0");
 	}
+		
+	
+	public static void main(String[] args) {
+		WxVipService wcs = new WxVipService();
+		WxBaseService wbs = new WxBaseService();
+		BaseConfig bc = new BaseConfig();
+		wbs.setBaseConfig(bc);
+		wcs.setBaseConfig(bc);
+		
+		wbs.getBaseConfig().setAccessToken("123");
+		System.out.println(wcs.getBaseConfig().getAccessToken());
+	}
 }
