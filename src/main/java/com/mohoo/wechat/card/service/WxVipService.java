@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mohoo.wechat.card.config.BaseConfig;
 import com.mohoo.wechat.card.util.PropertiesUtil;
 
 /**
@@ -24,8 +25,12 @@ import com.mohoo.wechat.card.util.PropertiesUtil;
  * @author Administrator
  * @version 1.0
  */
-public class WxVipService extends WxPushService {
+public class WxVipService extends WxCreateService {
 
+	public WxVipService(){}
+	public WxVipService(BaseConfig bc){
+		super(bc);
+	}
 	/**
 	 * 创建会员卡劵 方法描述
 	 * 

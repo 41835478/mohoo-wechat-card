@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mohoo.wechat.card.config.BaseConfig;
 import com.mohoo.wechat.card.util.PropertiesUtil;
 
 /**
@@ -26,7 +27,13 @@ import com.mohoo.wechat.card.util.PropertiesUtil;
  * @author Administrator
  * @version 1.0
  */
-public class WxConsumeService extends WxPushService {
+public class WxConsumeService extends WxBaseService {
+	
+	public WxConsumeService(){}
+	public WxConsumeService(BaseConfig bc){
+		super(bc);
+	}
+	
 	/**
 	 * 查询code接口 方法描述
 	 * 
@@ -39,6 +46,12 @@ public class WxConsumeService extends WxPushService {
 		String getCodeUrl = PropertiesUtil
 				.getPropertyPath("weixin.get_code");
 		return excutePost(getCodeUrl, JSONObject.toJSONString(paramMap));
+	}
+	public Map<String, Object> getCode(String json)
+			throws IOException {
+		String getCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.get_code");
+		return excutePost(getCodeUrl, json);
 	}
 
 	/**
@@ -63,6 +76,13 @@ public class WxConsumeService extends WxPushService {
 		String consumeCodeUrl = PropertiesUtil
 				.getPropertyPath("weixin.consume_code");
 		return excutePost(consumeCodeUrl, JSONObject.toJSONString(paramMap));
+	}
+	
+	public Map<String, Object> consumeCode(String json)
+			throws IOException {
+		String consumeCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.consume_code");
+		return excutePost(consumeCodeUrl,json);
 	}
 
 	/**

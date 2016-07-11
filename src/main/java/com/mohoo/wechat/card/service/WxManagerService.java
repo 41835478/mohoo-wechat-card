@@ -8,6 +8,7 @@ package com.mohoo.wechat.card.service;
 import java.io.IOException;
 import java.util.Map;
 
+import com.mohoo.wechat.card.config.BaseConfig;
 import com.mohoo.wechat.card.util.PropertiesUtil;
 
 /**
@@ -21,6 +22,11 @@ import com.mohoo.wechat.card.util.PropertiesUtil;
  * @version 1.0
  */
 public class WxManagerService extends WxBaseService{
+	
+	public WxManagerService(){}
+	public WxManagerService(BaseConfig bc){
+		super(bc);
+	}
 	/**
 	 * 更改code接口
 	 * @throws IOException 

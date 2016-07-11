@@ -2,7 +2,10 @@ package com.mohoo.wechat.card.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.concurrent.TimeUnit;
+
+import okio.BufferedSink;
 
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.MediaType;
@@ -17,7 +20,9 @@ public class OkHttpUtil {
 	public static final MediaType JSON = MediaType
 			.parse("application/json; charset=utf-8");
 	private static final MediaType MEDIA_TYPE_PNG = MediaType
-			.parse("image/png,image/jpg");
+			.parse("image/png;charset=utf-8");
+	private static final MediaType MEDIA_TYPE_MARKDOWN = MediaType
+			.parse("text/x-markdown; charset=utf-8");
 	static {
 		client.setConnectTimeout(30, TimeUnit.SECONDS);
 	}

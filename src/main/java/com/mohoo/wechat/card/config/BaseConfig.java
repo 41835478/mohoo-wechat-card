@@ -31,6 +31,10 @@ public class BaseConfig {
 	protected volatile String accessTokenUrl;
 	
 	protected volatile boolean isGetToken=false;
+	
+	public final Object globalAccessTokenRefreshLock = new Object();
+	
+	public final Object globalWxCardTicketRefreshLock = new Object();
 
 	public String getAccessToken() {
 		return accessToken;

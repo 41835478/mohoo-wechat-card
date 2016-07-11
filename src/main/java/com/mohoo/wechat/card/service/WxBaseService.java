@@ -35,14 +35,16 @@ public class WxBaseService {
 			.getLogger(WxBaseService.class);
 
 	protected BaseConfig baseConfig;
-	protected final Object globalAccessTokenRefreshLock = new Object();
 
 	protected static final int expiredTime = 7200;
 	protected static final long sleepTime = 1000;
 	// token有效时间2小时
 
-	protected final Object globalWxCardTicketRefreshLock = new Object();
-
+	public WxBaseService(){}
+	public WxBaseService(BaseConfig bc){
+		this.baseConfig = bc;
+	}
+	
 	public BaseConfig getBaseConfig() {
 		return baseConfig;
 	}
@@ -72,7 +74,7 @@ public class WxBaseService {
 			baseConfig.expireAccessToken();
 		}
 		if (baseConfig.isAccessTokenExpired()) {
-			synchronized (globalAccessTokenRefreshLock) {
+			synchronized (baseConfig.globalAccessTokenRefreshLock) {
 				if (baseConfig.isAccessTokenExpired()) {
 					while (true) {
 						String accessToken = "";

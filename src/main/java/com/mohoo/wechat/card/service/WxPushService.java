@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mohoo.wechat.card.config.BaseConfig;
 import com.mohoo.wechat.card.util.PropertiesUtil;
 
 /**
@@ -26,7 +27,12 @@ import com.mohoo.wechat.card.util.PropertiesUtil;
  * @author Administrator
  * @version 1.0
  */
-public class WxPushService extends WxCreateService {
+public class WxPushService extends WxBaseService {
+	
+	public WxPushService(){}
+	public WxPushService(BaseConfig bc){
+		super(bc);
+	}
 	/**
 	 * 创建二维码 方法描述
 	 * 
@@ -41,6 +47,12 @@ public class WxPushService extends WxCreateService {
 		return excutePost(createQrcodeUrl, JSONObject.toJSONString(paramMap));
 	}
 
+	public Map<String, Object> createQrcode(String Json) throws IOException {
+		String createQrcodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.qrcode_create");
+		return excutePost(createQrcodeUrl, Json);
+	}
+
 	/**
 	 * 创建货架 方法描述
 	 * 
@@ -51,9 +63,16 @@ public class WxPushService extends WxCreateService {
 	public Map<String, Object> createLandingpage(Map<String, Object> paramMap)
 			throws IOException {
 		String createLandingpageUrl = PropertiesUtil
-				.getPropertyPath("weixin.qrcode_create");
+				.getPropertyPath("weixin.landingpage_create");
 		return excutePost(createLandingpageUrl,
 				JSONObject.toJSONString(paramMap));
+	}
+
+	public Map<String, Object> createLandingpage(String json)
+			throws IOException {
+		String createLandingpageUrl = PropertiesUtil
+				.getPropertyPath("weixin.landingpage_create");
+		return excutePost(createLandingpageUrl, json);
 	}
 
 	/**
@@ -68,6 +87,12 @@ public class WxPushService extends WxCreateService {
 		String depositCodeUrl = PropertiesUtil
 				.getPropertyPath("weixin.deposit_code");
 		return excutePost(depositCodeUrl, JSONObject.toJSONString(paramMap));
+	}
+
+	public Map<String, Object> depositCode(String json) throws IOException {
+		String depositCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.deposit_code");
+		return excutePost(depositCodeUrl, json);
 	}
 
 	/**
@@ -120,6 +145,12 @@ public class WxPushService extends WxCreateService {
 		return excutePost(checkCodeUrl, JSONObject.toJSONString(paramMap));
 	}
 
+	public Map<String, Object> checkCode(String json) throws IOException {
+		String checkCodeUrl = PropertiesUtil
+				.getPropertyPath("weixin.checkcode");
+		return excutePost(checkCodeUrl, json);
+	}
+
 	/**
 	 * 图文消息群发卡劵 方法描述
 	 * 
@@ -151,5 +182,11 @@ public class WxPushService extends WxCreateService {
 		String testWhiteListUrl = PropertiesUtil
 				.getPropertyPath("weixin.testwhitelist");
 		return excutePost(testWhiteListUrl, JSONObject.toJSONString(paramMap));
+	}
+
+	public Map<String, Object> testWhiteList(String json) throws IOException {
+		String testWhiteListUrl = PropertiesUtil
+				.getPropertyPath("weixin.testwhitelist");
+		return excutePost(testWhiteListUrl, json);
 	}
 }

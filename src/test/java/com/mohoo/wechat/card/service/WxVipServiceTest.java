@@ -32,9 +32,15 @@ public class WxVipServiceTest {
 
 	@Before
 	public void init() {
+		String appid="wx9f6e2c93e991fcaa";
+		String secret="d4624c36b6795d1d99dcf0547af5443d";
+		bc.setGetToken(true);
+		bc.setSecret(secret);
+		bc.setAppid(appid);
 		wcs.setBaseConfig(bc);
 	}
-	String CARD_ID="pKXUCj9IQYI_MMiqvSrZ6uXqV_SY";
+//	String CARD_ID="pKXUCj9IQYI_MMiqvSrZ6uXqV_SY";
+	String CARD_ID="pVzhVw7gQgM6pr7SQFlAz8vOAYYQ";
 //	@Test
 	public void createVipCard() {
 		String json = "{ \"card\": { \"card_type\": \"MEMBER_CARD\", \"member_card\": { \"base_info\": { \"logo_url\": "
@@ -63,6 +69,44 @@ public class WxVipServiceTest {
 		Map<String, Object> resultMap = null;
 		try {
 			resultMap = wcs.getCard(CARD_ID);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(resultMap);
+		Assert.assertNotNull(resultMap);
+		Assert.assertEquals(resultMap.get("errcode").toString(),"0");
+	}
+//	@Test
+	public void groupSendCard(){
+		Map<String, Object> resultMap = null;
+		try {
+			resultMap = wcs.groupSendCard(CARD_ID);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(resultMap);
+		Assert.assertNotNull(resultMap);
+		Assert.assertEquals(resultMap.get("errcode").toString(),"0");
+	}
+//	@Test
+	public void activate(){
+		Map<String, Object> resultMap = null;
+		try {
+			resultMap = wcs.activate("");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println(resultMap);
+		Assert.assertNotNull(resultMap);
+		Assert.assertEquals(resultMap.get("errcode").toString(),"0");
+	}
+//	public void 
+	
+//	@Test
+	public void deleteCard(){
+		Map<String, Object> resultMap = null;
+		try {
+			resultMap = wcs.deleteCard(CARD_ID);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

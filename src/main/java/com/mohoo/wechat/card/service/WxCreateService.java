@@ -13,6 +13,7 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mohoo.wechat.card.config.BaseConfig;
 import com.mohoo.wechat.card.entity.CardInfo;
 import com.mohoo.wechat.card.util.PropertiesUtil;
 
@@ -29,6 +30,11 @@ import com.mohoo.wechat.card.util.PropertiesUtil;
  * @version 1.0
  */
 public class WxCreateService extends WxBaseService {
+	
+	public WxCreateService(){}
+	public WxCreateService(BaseConfig bc){
+		super(bc);
+	}
 	/**
 	 * 上传图片 方法描述 http:\/\/mmbiz.qpic.cn\/mmbiz\/
 	 * LLialCGQGiaEeTccVzMHyaFebQlxJUOy2vjkIsib8uTENiayyrdCF6WzpvVQn3CVXS2eqOLIsbiaHdj502GeHoRckVw
@@ -54,7 +60,7 @@ public class WxCreateService extends WxBaseService {
 					+ resultMap.get("errmsg"));
 		}
 	}
-
+	
 	/**
 	 * 创建卡劵 3种类型，6种方法
 	 * 

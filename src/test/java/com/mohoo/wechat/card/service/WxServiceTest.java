@@ -45,6 +45,8 @@ import com.mohoo.wechat.card.entity.coupon.GroupOn;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class WxServiceTest {
 	WxConsumeService wcs = new WxConsumeService();
+	WxCreateService wcrs =new WxCreateService();
+	WxPushService wps=new WxPushService();
 
 	public static String IMG_URL = "http://mmbiz.qpic.cn/mmbiz/LLialCGQGiaEd0RibuxJWUVrYLJIh8pAyxz71pXXSXYgQOlaekYmXcOmxQVUxZ2wA3icLMIn044IggSFc63wVtASsA/0";
 	public static String CARD_ID = "pKXUCj0H0h4XsVe4znnvMdL63Ti0";
@@ -55,6 +57,8 @@ public class WxServiceTest {
 	 @Before
 	public void init() {
 		wcs.setBaseConfig(bc);
+		wps.setBaseConfig(bc);
+		wcrs.setBaseConfig(bc);
 	}
 
 	/**
@@ -66,7 +70,7 @@ public class WxServiceTest {
 	public void uploadImage() {
 		String imgurl = null;
 		try {
-			imgurl = wcs.uploadImgToJson(new File("file/test.jpg"));
+			imgurl = wcrs.uploadImgToJson(new File("file/test.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -145,7 +149,7 @@ public class WxServiceTest {
 			CardInfo cardInfo = new CardInfo(card);
 			String info = JSONObject.toJSONString(cardInfo);
 			System.out.println(info);
-			cardId = wcs.createCardToJson(cardInfo);
+			cardId = wcrs.createCardToJson(cardInfo);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -175,7 +179,7 @@ public class WxServiceTest {
 		System.out.println(paramMap);
 		Map<String, Object> resultMap = null;
 		try {
-			resultMap = wcs.createQrcode(paramMap);
+			resultMap = wps.createQrcode(paramMap);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -196,7 +200,7 @@ public class WxServiceTest {
 	public void setTestWhiteList() {
 		Map<String, Object> resultMap = null;
 		try {
-			resultMap = wcs.testWhiteList(new String[] { OPEN_ID }, null);
+			resultMap = wps.testWhiteList(new String[] { OPEN_ID }, null);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
