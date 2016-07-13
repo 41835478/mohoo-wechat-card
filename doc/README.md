@@ -18,6 +18,9 @@ http://mp.weixin.qq.com/debug/
 ### 步骤六 设置测试白名单
 ### 步骤七 核销卡劵
 
+## 卡券事件推送
+参考地址：http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025274&token=&lang=zh_CN
+
 ## 参考文档
 - 微信卡券接口 http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141229&token=&lang=zh_CN
 - 会员卡专区 http://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1451025283&token=&lang=zh_CN
