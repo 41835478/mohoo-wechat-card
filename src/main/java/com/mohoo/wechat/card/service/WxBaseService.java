@@ -117,8 +117,7 @@ public class WxBaseService {
 	 * @throws IOException
 	 */
 	protected String findAccessToken() throws IOException {
-		String jsonMap = OkHttpUtil.doGetHttpRequest(PropertiesUtil
-				.getPropertyPath("weixin.access_token"));
+		String jsonMap = OkHttpUtil.doGetHttpRequest(baseConfig.getAccessTokenUrl());
 		if (StringUtils.isNotEmpty(jsonMap)) {
 			Map<String, Object> resultMap = JSONObject.parseObject(jsonMap);
 			if (resultMap.get("status") != null
