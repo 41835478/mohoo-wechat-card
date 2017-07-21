@@ -62,6 +62,47 @@ public class WxBaseService {
 	public String getAccessToken() {
 		return getAccessToken(false);
 	}
+	
+	/**
+	 * 获取api_ticket
+	 * 同access_token一样是7200s过期
+	 * @return
+	 */
+	public String getWxCardTicket() {
+		return getWxCardTicket(false);
+	}
+	
+	public String getWxCardTicket(boolean flag){
+		if(flag){
+			baseConfig.expireWxCardTicket();
+		}
+		if(baseConfig.isWxCardTicketExpired()){
+			synchronized (baseConfig.globalWxCardTicketRefreshLock) {
+				while (true) {
+					String wxCardTicket = "";
+					try {
+						wxCardTicket = findWxCardTicket();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					if (StringUtils.isNotEmpty(wxCardTicket)) {
+						baseConfig.updateWxCardTicket(wxCardTicket,
+								expiredTime);
+						logger.info("==========wxCardTicket:" + wxCardTicket);
+						break;
+					}
+					try {
+						Thread.sleep(sleepTime);
+						logger.info("==========wxCardTicket result is baded,after sleep one second,refresh token!");
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		return baseConfig.getWxCardTicket();
+	}
 
 	/**
 	 * 获取access_token 方法描述
@@ -142,12 +183,33 @@ public class WxBaseService {
 				.getPropertyPath("weixin.get_access_token").concat("&appid=")
 				.concat(baseConfig.getAppid()).concat("&secret=")
 				.concat(baseConfig.getSecret()));
+		System.out.println("access_token获取结果为：" + jsonMap);
 		if (StringUtils.isNotEmpty(jsonMap)) {
 			Map<String, Object> resultMap = JSONObject.parseObject(jsonMap);
 			if (resultMap.get("access_token") != null
 					&& StringUtils.isNotEmpty(resultMap.get("access_token")
 							.toString())) {
 				return resultMap.get("access_token").toString();
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * 调用接口获取卡劵 api_ticket
+	 * @return
+	 */
+	protected String findWxCardTicket() throws IOException {
+		String jsonMap = OkHttpUtil.doGetHttpRequest(PropertiesUtil
+				.getPropertyPath("weixin.card").concat("&access_token=")
+				.concat(baseConfig.getAccessToken()));
+		System.out.println("api_ticket获取结果为：" + jsonMap);
+		if (StringUtils.isNotEmpty(jsonMap)) {
+			Map<String, Object> resultMap = JSONObject.parseObject(jsonMap);
+			if (resultMap.get("ticket") != null
+					&& StringUtils.isNotEmpty(resultMap.get("ticket")
+							.toString())) {
+				return resultMap.get("ticket").toString();
 			}
 		}
 		return null;

@@ -164,6 +164,19 @@ public class WxVipService extends WxCreateService {
 				.getPropertyPath("weixin.update_card");
 		return excutePost(updateCardUrl, jsonObject);
 	}
+	
+	/**
+	 * Code解码(用于外链)
+	 * @param jsonObject
+	 * @return
+	 * @throws IOException
+	 */
+	public Map<String, Object> decryptCard(String jsonObject) throws IOException {
+		String decryptCardUrl = PropertiesUtil
+				.getPropertyPath("weixin.decrypt_code");
+		return excutePost(decryptCardUrl, jsonObject);
+	}
+	
 	/**
 	 * 修改库存接口
 	 * 方法描述
