@@ -9,6 +9,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mohoo.wechat.card.config.BaseConfig;
 import com.mohoo.wechat.card.util.PropertiesUtil;
@@ -56,6 +59,26 @@ public class WxVipService extends WxCreateService {
 		paramMap.put("card_id", cardId);
 		String getCardUrl = PropertiesUtil.getPropertyPath("weixin.get_card");
 		return excutePost(getCardUrl, JSONObject.toJSONString(paramMap));
+	}
+	
+	/**
+	 * 获取卡劵类型
+	 * @param cardId
+	 * @return
+	 * @throws IOException
+	 */
+	public String getCardType(String cardId) throws IOException {
+		Map<String, Object> card = getCard(cardId);
+		String type = "";
+		if(null != card){
+			Object cardInfo = card.get("card");
+			if(null != cardInfo){
+				String temp = JSON.toJSONString(cardInfo);
+				JSONObject json = JSONObject.parseObject(temp);
+				type = json.getString("card_type");
+			}
+		}
+		return type.toLowerCase();
 	}
 
 	/**
