@@ -69,6 +69,8 @@ public class WxBaseService {
 	 * @return
 	 */
 	public String getWxCardTicket() {
+		//需要提前获取access_token
+		getAccessToken();
 		return getWxCardTicket(false);
 	}
 	
