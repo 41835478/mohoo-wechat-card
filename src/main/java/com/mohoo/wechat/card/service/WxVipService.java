@@ -34,6 +34,19 @@ public class WxVipService extends WxCreateService {
 	public WxVipService(BaseConfig bc){
 		super(bc);
 	}
+	
+	/**
+	 * 获取所有用户
+	 * @param jsonObject
+	 * @return
+	 * @throws IOException
+	 */
+	public Map<String, Object> getUserList()
+			throws IOException {
+		String userlistUrl = PropertiesUtil.getPropertyPath("weixin.get_userlist");
+		return excuteGet(userlistUrl);
+	}
+	
 	/**
 	 * 创建会员卡劵 方法描述
 	 * 
