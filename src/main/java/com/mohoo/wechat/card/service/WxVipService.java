@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mohoo.wechat.card.config.BaseConfig;
@@ -33,6 +31,18 @@ public class WxVipService extends WxCreateService {
 	public WxVipService(){}
 	public WxVipService(BaseConfig bc){
 		super(bc);
+	}
+	
+	/**
+	 * 获取用户基本信息(union机制)
+	 * @param openid
+	 * @return
+	 * @throws IOException
+	 */
+	public Map<String, Object> getUserBaseInfo(String openid) throws IOException{
+		String baseInfoUrl = PropertiesUtil.getPropertyPath("weixin.get_user_baseinfo");
+		baseInfoUrl += "&openid=" + openid;
+		return excuteGet(baseInfoUrl);
 	}
 	
 	/**
